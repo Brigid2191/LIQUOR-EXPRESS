@@ -4,247 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Welcome to Liquor-Express</title>
-    <link rel="stylesheet" href="./src/style.css">
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            flex-direction: column;
-            min-height: 100vh;
-            background-color: #f9f9f9;
-        }
-        .header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 10px 20px;
-            background-color: #f4f4f4;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-            flex-wrap: wrap;
-        }
-        .main-heading {
-            margin: 0;
-            color: #333;
-            font-size: 1.5em;
-        }
-        .user-greeting {
-            text-align: center;
-            width: 100%;
-            font-size: 1.2em;
-            color: #333;
-            margin: 20px 0;
-            padding: 10px;
-            background-color: #f4f4f4;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-        }
-        .container {
-            display: flex;
-            flex-grow: 1;
-            flex-wrap: wrap;
-        }
-        .drink-menu {
-            flex: 3;
-            padding: 20px;
-            min-width: 300px;
-        }
-        .order-history {
-            flex: 1;
-            background-color: #f9f9f9;
-            padding: 20px;
-            border-left: 1px solid #e0e0e0;
-            overflow-y: auto;
-            min-width: 250px;
-        }
-        .order-history h2 {
-            margin-bottom: 15px;
-            color: #333;
-        }
-        .drink-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-            gap: 20px;
-        }
-        .drink-item {
-            border: 1px solid #e0e0e0;
-            padding: 15px;
-            text-align: center;
-            background-color: white;
-            border-radius: 5px;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            display: flex;
-            flex-direction: column;
-        }
-        .drink-item:hover {
-            transform: scale(1.05);
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-        }
-        .drink-item img {
-            max-width: 100%;
-            height: 200px;
-            object-fit: cover;
-            border-radius: 5px;
-            margin-bottom: 10px;
-        }
-        .drink-item h3 {
-            margin: 10px 0;
-            font-size: 1em;
-        }
-        .drink-item p {
-            margin: 5px 0 10px;
-            font-weight: bold;
-        }
-        .logout-btn {
-            background-color: #ff4d4d;
-            color: white;
-            border: none;
-            padding: 8px 15px;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-        }
-        .logout-btn:hover {
-            background-color: #ff3333;
-        }
-        .cart-section {
-            margin-top: 20px;
-            padding: 15px;
-            background-color: #f4f4f4;
-            border-radius: 5px;
-        }
-        .cart-total {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-top: 10px;
-        }
-        #checkout-btn {
-            background-color: #4CAF50;
-            color: white;
-            border: none;
-            padding: 10px 15px;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-        }
-        #checkout-btn:hover {
-            background-color: #45a049;
-        }
-        .product-actions {
-            margin-top: auto;
-            display: flex;
-            justify-content: center;
-        }
-        .add-to-cart {
-            background-color: #007bff;
-            color: white;
-            border: none;
-            padding: 6px 12px;
-            border-radius: 3px;
-            cursor: pointer;
-            font-size: 0.9em;
-            transition: background-color 0.3s ease;
-        }
-        .add-to-cart:hover {
-            background-color: #0056b3;
-        }
-        .add-to-cart:disabled {
-            background-color: #cccccc;
-            cursor: not-allowed;
-        }
-        .order-item {
-            background-color: white;
-            border: 1px solid #e0e0e0;
-            border-radius: 5px;
-            padding: 15px;
-            margin-bottom: 10px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-        }
-        .order-item-products {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-            margin-top: 10px;
-        }
-        .order-item-product {
-            display: flex;
-            align-items: center;
-            background-color: #f4f4f4;
-            padding: 5px 10px;
-            border-radius: 3px;
-        }
-        .order-item-product img {
-            width: 50px;
-            height: 50px;
-            margin-right: 10px;
-            object-fit: cover;
-            border-radius: 3px;
-        }
-
-        /* Responsive Media Queries */
-        @media screen and (max-width: 768px) {
-            .container {
-                flex-direction: column;
-            }
-            .drink-menu, .order-history {
-                flex: none;
-                width: 100%;
-                border-left: none;
-            }
-            .header {
-                flex-direction: column;
-                text-align: center;
-            }
-            .user-section {
-                margin-top: 10px;
-            }
-            .drink-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-            .drink-item img {
-                height: 150px;
-            }
-            .order-history {
-                border-top: 1px solid #e0e0e0;
-            }
-        }
-
-        @media screen and (max-width: 480px) {
-            .drink-grid {
-                grid-template-columns: 1fr;
-            }
-            .cart-section {
-                padding: 10px;
-            }
-            .cart-total {
-                flex-direction: column;
-                align-items: stretch;
-            }
-            #checkout-btn {
-                margin-top: 10px;
-                width: 100%;
-            }
-            .order-item-products {
-                flex-direction: column;
-            }
-        }
-
-        /* Additional touch-friendly adjustments */
-        @media (hover: none) and (pointer: coarse) {
-            .drink-item:hover {
-                transform: none;
-                box-shadow: none;
-            }
-            .add-to-cart {
-                padding: 10px 15px;
-                font-size: 1em;
-            }
-            .logout-btn {
-                padding: 10px 15px;
-            }
-        }
-    </style>
+    <link rel="stylesheet" href="./src/style.css"> <!-- Corrected CSS file path -->
 </head>
 <body>
     <div class="header">
@@ -258,10 +18,7 @@
 
     <div class="container">
         <div class="drink-menu">
-            <div class="drink-grid" id="product-grid">
-                <!-- Products will be dynamically loaded here -->
-            </div>
-
+            <div class="drink-grid" id="product-grid"></div>
             <div class="cart-section">
                 <h2>Shopping Cart</h2>
                 <div id="cart-items"></div>
@@ -271,12 +28,9 @@
                 </div>
             </div>
         </div>
-
         <div class="order-history">
             <h2>Your Order History</h2>
-            <div id="order-history-container">
-                <!-- Order history will be dynamically loaded here -->
-            </div>
+            <div id="order-history-container"></div>
         </div>
     </div>
 
@@ -293,119 +47,50 @@
 
         let cart = [];
 
-        // Check user authentication
         const currentUser = JSON.parse(localStorage.getItem('currentUser'));
         if (!currentUser) {
             window.location.href = 'login.html';
             return;
         }
 
-        // Update user greeting
-        if (userGreeting) {
-            userGreeting.textContent = `Welcome ${currentUser.fullName} to Liquor Express`;
-        }
+        userGreeting.textContent = `Welcome ${currentUser.fullName} to Liquor Express`;
 
-        // Logout functionality
-        if (logoutBtn) {
-            logoutBtn.addEventListener('click', () => {
-                localStorage.removeItem('currentUser');
-                window.location.href = 'login.html';
-            });
-        }
+        logoutBtn.addEventListener('click', () => {
+            localStorage.removeItem('currentUser');
+            window.location.href = 'login.html';
+        });
 
-        // Fetch and display products
         async function loadProducts() {
             try {
                 const response = await fetch(`${API_BASE_URL}/products`);
                 const products = await response.json();
-
-                // Clear existing products
                 productGrid.innerHTML = '';
-
-                // Create product cards
                 products.forEach(product => {
                     const productCard = document.createElement('div');
                     productCard.classList.add('drink-item');
-                    
                     productCard.innerHTML = `
-                        <img src="${product.image}" alt="${product.name}" class="product-image" onerror="this.onerror=null; this.src='./src/images/placeholder.png';">
+                        <img src="${product.image}" alt="${product.name}">
                         <h3>${product.name}</h3>
                         <p>$${product.price.toFixed(2)}</p>
-                        <div class="product-actions">
-                            <button class="add-to-cart" data-id="${product.id}">Add to Cart</button>
-                        </div>
+                        <button class="add-to-cart" data-id="${product.id}">Add to Cart</button>
                     `;
                     productGrid.appendChild(productCard);
                 });
-
-                // Add event listeners for add to cart buttons
                 addToCartEventListeners();
             } catch (error) {
                 console.error('Error loading products:', error);
-                productGrid.innerHTML = '<p>Failed to load products. Please try again later.</p>';
             }
         }
 
-        // Fetch and display order history
-        async function loadOrderHistory() {
-            try {
-                const response = await fetch(`${API_BASE_URL}/orders?userId=${currentUser.id}`);
-                const orders = await response.json();
-
-                // Clear existing order history
-                orderHistoryContainer.innerHTML = '';
-
-                if (orders.length === 0) {
-                    orderHistoryContainer.innerHTML = '<p>No previous orders found.</p>';
-                    return;
-                }
-
-                // Create order history items
-                orders.forEach((order, index) => {
-                    const orderItem = document.createElement('div');
-                    orderItem.classList.add('order-item');
-                    
-                    // Format date
-                    const orderDate = new Date(order.date).toLocaleString();
-
-                    orderItem.innerHTML = `
-                        <h3>Order #${index + 1}</h3>
-                        <p>Date: ${orderDate}</p>
-                        <p>Total: $${order.total.toFixed(2)}</p>
-                        <div class="order-item-products">
-                            ${order.products.map(product => `
-                                <div class="order-item-product">
-                                    <img src="${product.image}" alt="${product.name}">
-                                    <span>${product.name} - $${product.price.toFixed(2)}</span>
-                                </div>
-                            `).join('')}
-                        </div>
-                    `;
-
-                    orderHistoryContainer.appendChild(orderItem);
-                });
-            } catch (error) {
-                console.error('Error loading order history:', error);
-                orderHistoryContainer.innerHTML = '<p>Error loading order history.</p>';
-            }
-        }
-
-        // Add to Cart functionality
         function addToCartEventListeners() {
-            const addToCartButtons = document.querySelectorAll('.add-to-cart');
-            addToCartButtons.forEach(button => {
+            document.querySelectorAll('.add-to-cart').forEach(button => {
                 button.addEventListener('click', async () => {
                     const productId = button.dataset.id;
-                    
                     try {
                         const response = await fetch(`${API_BASE_URL}/products/${productId}`);
                         const product = await response.json();
-
-                        // Add product to cart
                         cart.push(product);
                         updateCart();
-                        
-                        // Disable button after adding to cart
                         button.textContent = 'Added';
                         button.disabled = true;
                     } catch (error) {
@@ -415,86 +100,46 @@
             });
         }
 
-        // Update Cart
         function updateCart() {
-            if (cartItemsContainer && totalPriceElement) {
-                cartItemsContainer.innerHTML = '';
-                const totalPrice = cart.reduce((total, item) => total + item.price, 0);
-
-                cart.forEach(item => {
-                    const cartItemElement = document.createElement('div');
-                    cartItemElement.classList.add('cart-item');
-                    cartItemElement.innerHTML = `
-                        <span>${item.name}</span>
-                        <span>$${item.price.toFixed(2)}</span>
-                    `;
-                    cartItemsContainer.appendChild(cartItemElement);
-                });
-
-                totalPriceElement.textContent = totalPrice.toFixed(2);
-            }
-        }
-
-        // Checkout Functionality
-        if (checkoutBtn) {
-            checkoutBtn.addEventListener('click', async () => {
-                if (cart.length === 0) {
-                    alert('Your cart is empty!');
-                    return;
-                }
-
-                try {
-                    // Create order
-                    const orderResponse = await fetch(`${API_BASE_URL}/orders`, {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json'
-                        },
-                        body: JSON.stringify({
-                            userId: currentUser.id,
-                            products: cart,
-                            total: cart.reduce((total, item) => total + item.price, 0),
-                            date: new Date().toISOString()
-                        })
-                    });
-
-                    if (orderResponse.ok) {
-                        // Prompt for payment on delivery
-                        const confirmCheckout = confirm(`
-                            Order Total: $${cart.reduce((total, item) => total + item.price, 0).toFixed(2)}
-                            
-                            Checkout Options:
-                            - Pay on Delivery
-                            - Cash Payment
-                            
-                            Press OK to confirm order and pay on delivery.
-                        `);
-
-                        if (confirmCheckout) {
-                            alert('Order placed successfully! You will pay on delivery.');
-                            
-                            // Reset cart and UI
-                            cart = [];
-                            updateCart();
-                            document.querySelectorAll('.add-to-cart').forEach(btn => {
-                                btn.textContent = 'Add to Cart';
-                                btn.disabled = false;
-                            });
-
-                            // Reload order history
-                            loadOrderHistory();
-                        }
-                    }
-                } catch (error) {
-                    console.error('Checkout Error:', error);
-                    alert('Error placing order');
-                }
+            cartItemsContainer.innerHTML = '';
+            const totalPrice = cart.reduce((total, item) => total + item.price, 0);
+            cart.forEach(item => {
+                const cartItemElement = document.createElement('div');
+                cartItemElement.classList.add('cart-item');
+                cartItemElement.innerHTML = `<span>${item.name}</span> <span>$${item.price.toFixed(2)}</span>`;
+                cartItemsContainer.appendChild(cartItemElement);
             });
+            totalPriceElement.textContent = totalPrice.toFixed(2);
         }
 
-        // Initial loads
+        checkoutBtn.addEventListener('click', async () => {
+            if (cart.length === 0) {
+                alert('Your cart is empty!');
+                return;
+            }
+            try {
+                const response = await fetch(`${API_BASE_URL}/orders`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        userId: currentUser.id,
+                        products: cart,
+                        total: cart.reduce((total, item) => total + item.price, 0),
+                        date: new Date().toISOString()
+                    })
+                });
+                if (response.ok) {
+                    alert('Order placed successfully!');
+                    cart = [];
+                    updateCart();
+                }
+            } catch (error) {
+                console.error('Checkout Error:', error);
+                alert('Error placing order');
+            }
+        });
+
         loadProducts();
-        loadOrderHistory();
     });
     </script>
 </body>

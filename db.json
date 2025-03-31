@@ -1,0 +1,115 @@
+{
+  "users": [
+    {
+      "id": "1",
+      "fullName": "John Doe",
+      "email": "john@example.com",
+      "username": "johndoe",
+      "password": "password123"
+    },
+    {
+      "id": "3",
+      "fullName": "Maxwel Omwoyo",
+      "email": "maxwellbakora93@gmail.com",
+      "username": "Maxypike",
+      "password": "Maxypike@219221"
+    },
+    {
+      "id": "4",
+      "fullName": "Brigid Syondie",
+      "email": "brigidsyondie@gmail.com",
+      "username": "brigid",
+      "password": "1234"
+    }
+  ],
+  "products": [
+    {
+      "id": "1",
+      "name": "Gin",
+      "price": 24.99,
+      "image": "/images/gin.png"
+    },
+    {
+      "id": "2",
+      "name": "Whiskey",
+      "price": 34.99,
+      "image": "/images/whiskey.png"
+    },
+    {
+      "id": "3",
+      "name": "Rum",
+      "price": 22.99,
+      "image": "/images/rum.png"
+    },
+    {
+      "id": "4",
+      "name": "Wine",
+      "price": 29.99,
+      "image": "/images/wine.png"
+    },
+    {
+      "id": "5",
+      "name": "Beer",
+      "price": 14.99,
+      "image": "/images/beer.png"
+    },
+    {
+      "id": "6",
+      "name": "Jameson",
+      "price": 39.99,
+      "image": "/images/jameson.png"
+    }
+  ],
+  "orders": [
+    {
+      "id": "1",
+      "userId": "3",
+      "products": [
+        {
+          "id": "1",
+          "name": "Gin",
+          "price": 24.99,
+          "image": "/images/gin.png",
+          "payment": "On delivery"
+        },
+        {
+          "id": "2",
+          "name": "Whiskey",
+          "price": 34.99,
+          "image": "/images/whiskey.png",
+          "payment": "On delivery"
+        }
+      ],
+      "total": 59.98,
+      "date": "2025-03-27T09:45:51.603Z"
+    },
+    {
+      "id": "14",
+      "userId": "4",
+      "products": [
+        {
+          "id": "6",
+          "name": "Jameson",
+          "price": 39.99,
+          "image": "/images/jameson.png"
+        }
+      ],
+      "total": 39.99,
+      "date": "2025-03-27T16:06:10.916Z"
+    },
+    {
+      "id": "15",
+      "userId": "4",
+      "products": [
+        {
+          "id": "5",
+          "name": "Beer",
+          "price": 14.99,
+          "image": "/images/beer.png"
+        }
+      ],
+      "total": 14.99,
+      "date": "2025-03-31T11:13:02.753Z"
+    }
+  ]
+}

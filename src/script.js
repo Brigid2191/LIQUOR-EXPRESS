@@ -1,7 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
     const loginForm = document.getElementById('login-form');
     const signupForm = document.getElementById('signup-form');
-    const addToCartButtons = document.querySelectorAll('.add-to-cart');
     const checkoutBtn = document.getElementById('checkout-btn');
 
     // API Base URL
@@ -18,14 +17,12 @@ document.addEventListener('DOMContentLoaded', () => {
             const password = document.getElementById('password').value;
             const confirmPassword = document.getElementById('confirmPassword').value;
 
-            // Basic validation
             if (password !== confirmPassword) {
                 alert('Passwords do not match');
                 return;
             }
 
             try {
-                // Check if username already exists
                 const usersResponse = await fetch(`${API_BASE_URL}/users?username=${username}`);
                 const existingUsers = await usersResponse.json();
 
@@ -34,18 +31,10 @@ document.addEventListener('DOMContentLoaded', () => {
                     return;
                 }
 
-                // Create new user
                 const response = await fetch(`${API_BASE_URL}/users`, {
                     method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({
-                        fullName,
-                        email,
-                        username,
-                        password
-                    })
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ fullName, email, username, password })
                 });
 
                 if (response.ok) {
@@ -74,7 +63,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 const users = await response.json();
 
                 if (users.length > 0) {
-                    // Store logged-in user info in localStorage
                     localStorage.setItem('currentUser', JSON.stringify(users[0]));
                     alert('Login Successful');
                     window.location.href = 'drinkmenu.html';
@@ -88,16 +76,15 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Load Drink Menu Dynamically
+    // Load Drink Menu
     async function loadDrinkMenu() {
         const drinkGrid = document.querySelector('.drink-grid');
-        
         if (drinkGrid) {
             try {
                 const response = await fetch(`${API_BASE_URL}/products`);
                 const products = await response.json();
 
-                drinkGrid.innerHTML = ''; // Clear existing items
+                drinkGrid.innerHTML = '';
                 products.forEach(product => {
                     const drinkItem = document.createElement('div');
                     drinkItem.classList.add('drink-item');
@@ -110,7 +97,6 @@ document.addEventListener('DOMContentLoaded', () => {
                     drinkGrid.appendChild(drinkItem);
                 });
 
-                // Reinitialize cart buttons
                 initializeCartButtons();
             } catch (error) {
                 console.error('Error loading products:', error);
@@ -120,20 +106,15 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Cart Functionality
     let cart = [];
-
     function initializeCartButtons() {
-        const addToCartButtons = document.querySelectorAll('.add-to-cart');
-        addToCartButtons.forEach(button => {
+        document.querySelectorAll('.add-to-cart').forEach(button => {
             button.addEventListener('click', async () => {
                 const productId = button.dataset.id;
-                
                 try {
                     const response = await fetch(`${API_BASE_URL}/products/${productId}`);
                     const product = await response.json();
-
                     cart.push(product);
                     updateCart();
-                    
                     button.textContent = 'Added';
                     button.disabled = true;
                 } catch (error) {
@@ -149,15 +130,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
         if (cartItemsContainer && totalPriceElement) {
             cartItemsContainer.innerHTML = '';
-            const totalPrice = cart.reduce((total, item) => total + item.price, 0);
+            let totalPrice = 0;
 
             cart.forEach(item => {
+                totalPrice += item.price;
                 const cartItemElement = document.createElement('div');
                 cartItemElement.classList.add('cart-item');
-                cartItemElement.innerHTML = `
-                    <span>${item.name}</span>
-                    <span>$${item.price.toFixed(2)}</span>
-                `;
+                cartItemElement.innerHTML = `<span>${item.name}</span> <span>$${item.price.toFixed(2)}</span>`;
                 cartItemsContainer.appendChild(cartItemElement);
             });
 
@@ -166,16 +145,14 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // Checkout Functionality
-    const checkoutButton = document.getElementById('checkout-btn');
-    if (checkoutButton) {
-        checkoutButton.addEventListener('click', async () => {
+    if (checkoutBtn) {
+        checkoutBtn.addEventListener('click', async () => {
             if (cart.length === 0) {
                 alert('Your cart is empty!');
                 return;
             }
 
             const currentUser = JSON.parse(localStorage.getItem('currentUser'));
-            
             if (!currentUser) {
                 alert('Please login to place an order');
                 window.location.href = 'login.html';
@@ -185,9 +162,7 @@ document.addEventListener('DOMContentLoaded', () => {
             try {
                 const orderResponse = await fetch(`${API_BASE_URL}/orders`, {
                     method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
+                    headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({
                         userId: currentUser.id,
                         products: cart,
@@ -212,6 +187,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Load drink menu on drink menu page
+    // Load drinks on menu page
     loadDrinkMenu();
 });
